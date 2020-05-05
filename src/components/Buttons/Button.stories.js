@@ -8,39 +8,42 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Button, { ButtonComponent } from "./Button";
 
 export const actions = {
-  onClick: action("onClick")
+  onClick: action("onClick"),
 };
 
 const addinTheme = createMuiTheme({
-  venaTheme: "addin"
+  venaTheme: "addin",
 });
 
 const webTheme = createMuiTheme({
-  venaTheme: "web"
+  venaTheme: "web",
 });
 
-const buttonWithKnobs = theme => (
-  <MuiThemeProvider theme={theme}>
-    <Button
-      color={select(
-        "color",
-        {
-          Primary: "primary",
-          Secondary: "secondary",
-          Confirmation: "confirmation",
-          Danger: "danger"
-        },
-        "primary"
-      )}
-      disabled={boolean("disabled", false)}
-      isLoading={boolean("isLoading", false)}
-      iconClass={text("iconClass", "")}
-      onClick={actions.onClick}
-    >
-      {text("label", "Button")}
-    </Button>
-  </MuiThemeProvider>
-);
+const buttonWithKnobs = (theme) => {
+  global.document.title = "Kardia | Button";
+  return (
+    <MuiThemeProvider theme={theme}>
+      <Button
+        color={select(
+          "color",
+          {
+            Primary: "primary",
+            Secondary: "secondary",
+            Confirmation: "confirmation",
+            Danger: "danger",
+          },
+          "primary"
+        )}
+        disabled={boolean("disabled", false)}
+        isLoading={boolean("isLoading", false)}
+        iconClass={text("iconClass", "")}
+        onClick={actions.onClick}
+      >
+        {text("label", "Button")}
+      </Button>
+    </MuiThemeProvider>
+  );
+};
 
 storiesOf("Button", module)
   .addDecorator(withKnobs)
@@ -49,7 +52,7 @@ storiesOf("Button", module)
     withInfo({
       source: false,
       propTables: [ButtonComponent],
-      propTablesExclude: [Button]
+      propTablesExclude: [Button],
     })(() => (
       <div>
         <h1>Welcome to Kardia!</h1>
