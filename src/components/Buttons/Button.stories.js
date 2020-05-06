@@ -19,31 +19,28 @@ const webTheme = createMuiTheme({
   venaTheme: "web",
 });
 
-const buttonWithKnobs = (theme) => {
-  global.document.title = "Kardia | Button";
-  return (
-    <MuiThemeProvider theme={theme}>
-      <Button
-        color={select(
-          "color",
-          {
-            Primary: "primary",
-            Secondary: "secondary",
-            Confirmation: "confirmation",
-            Danger: "danger",
-          },
-          "primary"
-        )}
-        disabled={boolean("disabled", false)}
-        isLoading={boolean("isLoading", false)}
-        iconClass={text("iconClass", "")}
-        onClick={actions.onClick}
-      >
-        {text("label", "Button")}
-      </Button>
-    </MuiThemeProvider>
-  );
-};
+const buttonWithKnobs = (theme) => (
+  <MuiThemeProvider theme={theme}>
+    <Button
+      color={select(
+        "color",
+        {
+          Primary: "primary",
+          Secondary: "secondary",
+          Confirmation: "confirmation",
+          Danger: "danger",
+        },
+        "primary"
+      )}
+      disabled={boolean("disabled", false)}
+      isLoading={boolean("isLoading", false)}
+      iconClass={text("iconClass", "")}
+      onClick={actions.onClick}
+    >
+      {text("label", "Button")}
+    </Button>
+  </MuiThemeProvider>
+);
 
 storiesOf("Button", module)
   .addDecorator(withKnobs)
