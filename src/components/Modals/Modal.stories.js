@@ -17,15 +17,13 @@ storiesOf("Modal", module).add(
     source: false,
     propTables: [Modal],
   })(() => (
-    <div>
-      <Modal
-        avatar={faCog}
-        title="Custom Formatting"
-        message="Once enabled, we'll send a passcode to this number every time you login."
-        close
-        okText="Ok"
-        cancelText="Cancel"
-      />
-    </div>
+    <Modal
+      avatar={faCog}
+      title="Custom Formatting"
+      message="Once enabled, we'll send a passcode to this number every time you login."
+      close
+      okText="Ok"
+      cancelText="Cancel"
+    />
   ))
 );

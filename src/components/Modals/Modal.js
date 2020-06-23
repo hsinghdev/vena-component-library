@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { ThemeProvider } from "styled-components";
 import { space } from "styled-system";
 
+import VenaThemeProvider from "../../context/theme";
+
 import themes from "../../styles/themes";
+import testTheme from "./testTheme";
 
 const getDefaultStyles = ({ theme }) => ({
   color: theme.colors.BLACK,
@@ -49,15 +51,17 @@ const getDefaultStyles = ({ theme }) => ({
 });
 
 const StyledModal = styled("div")(
-  ({ theme }) => ({
-    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-    borderRadius: 3,
-    boxSizing: "border-box",
-    background: theme.colors.WHITE,
-    minWidth: 401,
-    height: "auto",
-    position: "absolute",
-  }),
+  ({ theme }) => {
+    return {
+      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+      borderRadius: 3,
+      boxSizing: "border-box",
+      background: theme.colors.WHITE,
+      minWidth: 401,
+      height: "auto",
+      position: "absolute",
+    };
+  },
   getDefaultStyles,
   space
 );
@@ -120,36 +124,44 @@ const Modal = ({
   okClick,
   cancelClick,
   children,
-}) => {
-  return (
-    <ThemeProvider theme={themes.web}>
-      <ModalBg p="4">
-        <StyledModal p="4">
-          <StyledModalHeader>
-            {avatar && (
-              <p>
-                <FontAwesomeIcon icon={avatar} />
-              </p>
-            )}
-            {title && <p className="title">{title}</p>}
-            {close && (
-              <p className="close-button" onClick={cancelClick} role="button">
-                Close
-                <FontAwesomeIcon icon={faTimes} />
-              </p>
-            )}
-          </StyledModalHeader>
-          {message && <StyledMessage>{message}</StyledMessage>}
-          {children && children}
-          <StyledFooter>
-            {cancelText && <button onClick={cancelClick}>{cancelText}</button>}
-            {okText && <button onClick={okClick}>{okText}</button>}
-          </StyledFooter>
-        </StyledModal>
-      </ModalBg>
-    </ThemeProvider>
-  );
-};
+  theme = testTheme,
+}) => (
+  <VenaThemeProvider
+    theme={
+      theme
+        ? {
+            ...themes,
+            ...theme,
+          }
+        : themes
+    }
+  >
+    <ModalBg p="4">
+      <StyledModal p="4">
+        <StyledModalHeader>
+          {avatar && (
+            <p>
+              <FontAwesomeIcon icon={avatar} />
+            </p>
+          )}
+          {title && <p className="title">{title}</p>}
+          {close && (
+            <p className="close-button" onClick={cancelClick} role="button">
+              Close
+              <FontAwesomeIcon icon={faTimes} />
+            </p>
+          )}
+        </StyledModalHeader>
+        {message && <StyledMessage>{message}</StyledMessage>}
+        {children && children}
+        <StyledFooter>
+          {cancelText && <button onClick={cancelClick}>{cancelText}</button>}
+          {okText && <button onClick={okClick}>{okText}</button>}
+        </StyledFooter>
+      </StyledModal>
+    </ModalBg>
+  </VenaThemeProvider>
+);
 
 Modal.propTypes = {
   avatar: PropTypes.string,
